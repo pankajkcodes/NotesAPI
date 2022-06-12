@@ -1,7 +1,7 @@
 const userModel = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const SECRET_KEY = "SECRET_NOTES";
+
 
 const signup = async (req, res) => {
     // User Creation
@@ -22,7 +22,7 @@ const signup = async (req, res) => {
         });
 
         // Token Generate
-        const token = jwt.sign({ email: result.email, id: result._id }, SECRET_KEY);
+        const token = jwt.sign({ email: result.email, id: result._id }, process.env.SECRET_KEY);
         res.status(201).json({ user: result, token: token });
     } catch (error) {
         console.log(error);
